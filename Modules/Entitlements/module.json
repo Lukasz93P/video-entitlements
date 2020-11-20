@@ -1,0 +1,14 @@
+{
+    "name": "Entitlements",
+    "alias": "entitlements",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Entitlements\\Providers\\EntitlementsServiceProvider",
+        "Modules\\Entitlements\\Providers\\EntitlementsEventServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

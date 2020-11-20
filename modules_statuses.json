@@ -1,0 +1,5 @@
+{
+    "Entitlements": true,
+    "SharedKernel": true,
+    "Resources": true
+}

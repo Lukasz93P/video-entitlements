@@ -1,0 +1,1037 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Entitlements API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/entitlements/broadcasters": {
+            "post": {
+                "summary": "Register new broadcaster",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\BroadcastersPlansController::registerBroadcaster",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Id of broadcaster which should be registered",
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/broadcasters/{broadcasterId}/plans/{planId}/parents": {
+            "put": {
+                "summary": "Attach plan to parent",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\BroadcastersPlansController::attachPlanToParent",
+                "parameters": [
+                    {
+                        "name": "broadcasterId",
+                        "in": "path",
+                        "description": "Id of broadcaster which owns plan",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    },
+                    {
+                        "name": "planId",
+                        "in": "path",
+                        "description": "Id of plan which should be attached to parent",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "parentPlanId"
+                                ],
+                                "properties": {
+                                    "parentPlanId": {
+                                        "description": "Id of desired parent plan",
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/broadcasters/{broadcasterId}/plans/{planId}/parents/{parentPlanId}": {
+            "delete": {
+                "summary": "Detach plan from parent",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\BroadcastersPlansController::detachPlanFromParent",
+                "parameters": [
+                    {
+                        "name": "broadcasterId",
+                        "in": "path",
+                        "description": "Id of broadcaster which owns plan",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    },
+                    {
+                        "name": "planId",
+                        "in": "path",
+                        "description": "Id of plan which should be detached from parent",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    },
+                    {
+                        "name": "parentPlanId",
+                        "in": "path",
+                        "description": "Id of parent plan from which plan should be detached",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/broadcasters/{broadcasterId}/plans/{planId}/categories": {
+            "put": {
+                "summary": "Assign category to plan",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\BroadcastersPlansController::assignCategoryToPlan",
+                "parameters": [
+                    {
+                        "name": "broadcasterId",
+                        "in": "path",
+                        "description": "Id of broadcaster which owns plan",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    },
+                    {
+                        "name": "planId",
+                        "in": "path",
+                        "description": "Id of plan to which category should be assigned",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "categoryId"
+                                ],
+                                "properties": {
+                                    "categoryId": {
+                                        "description": "Id of category which should be assigned to plan",
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/broadcasters/{broadcasterId}/plans/{planId}/categories/{categoryId}": {
+            "delete": {
+                "summary": "Unassign category from plan",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\BroadcastersPlansController::unassignCategoryFromPlan",
+                "parameters": [
+                    {
+                        "name": "broadcasterId",
+                        "in": "path",
+                        "description": "Id of broadcaster which owns plan",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    },
+                    {
+                        "name": "planId",
+                        "in": "path",
+                        "description": "Id of plan from which category should be unassigned",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    },
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Id of category which should be unassigned from plan",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/videos/{videoId}/plans": {
+            "put": {
+                "summary": "Assign video to plan",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\VideosController::assignVideoToPlan",
+                "parameters": [
+                    {
+                        "name": "videoId",
+                        "in": "path",
+                        "description": "Id of video which should be assigned to plan",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "planId"
+                                ],
+                                "properties": {
+                                    "planId": {
+                                        "description": "Id of plan to which video should be assigned",
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/videos/{videoId}/plans/{planId}": {
+            "delete": {
+                "summary": "Unassign video from plan",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\VideosController::unassignVideoToPlan",
+                "parameters": [
+                    {
+                        "name": "videoId",
+                        "in": "path",
+                        "description": "Id of video which should be unassigned from plan",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    },
+                    {
+                        "name": "planId",
+                        "in": "path",
+                        "description": "Id of plan from which video should be unassigned",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/videos/{videoId}/categories": {
+            "put": {
+                "summary": "Assign video to category",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\VideosController::assignVideoToCategory",
+                "parameters": [
+                    {
+                        "name": "videoId",
+                        "in": "path",
+                        "description": "Id of video which should be assigned to category",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "categoryId"
+                                ],
+                                "properties": {
+                                    "categoryId": {
+                                        "description": "Id of category to which video should be assigned",
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/videos/{videoId}/categories/{categoryId}": {
+            "delete": {
+                "summary": "Unassign video from category",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\VideosController::unassignVideoFromCategory",
+                "parameters": [
+                    {
+                        "name": "videoId",
+                        "in": "path",
+                        "description": "Id of video which should be unassigned from category",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    },
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Id of category from which video should be unassigned",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/videos/{videoId}/viewers/{viewerId}": {
+            "get": {
+                "summary": "Check if viewer is entitled to watch the video",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\VideosController::isViewerEntitledToWatchVideo",
+                "parameters": [
+                    {
+                        "name": "videoId",
+                        "in": "path",
+                        "description": "Id of video to which entitlement should be checked",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    },
+                    {
+                        "name": "viewerId",
+                        "in": "path",
+                        "description": "Id of viewer for which entitlement should be checked",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Viewer entitled to watch video",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden, viewer not entitled to watch video"
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/viewers": {
+            "post": {
+                "summary": "Register new viewer",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\ViewersController::registerViewer",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Id of viewer which should be registered",
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/viewers/{viewerId}/plans": {
+            "put": {
+                "summary": "Register that viewer purchased a plan",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\ViewersController::registerViewerPurchasedPlan",
+                "parameters": [
+                    {
+                        "name": "viewerId",
+                        "in": "path",
+                        "description": "Id of viewer who purchased a plan",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "planId",
+                                    "expiresAt"
+                                ],
+                                "properties": {
+                                    "planId": {
+                                        "description": "Id of purchased plan",
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                                    },
+                                    "expiresAt": {
+                                        "description": "Moment of plan expiration",
+                                        "type": "string",
+                                        "format": "datetime",
+                                        "example": "2021-01-01 00:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entitlements/viewers/{viewerId}/videos": {
+            "put": {
+                "summary": "Register that viewer purchased a pay per view video",
+                "operationId": "Modules\\Entitlements\\Http\\Controllers\\ViewersController::registerViewerPurchasedPayPerViewVideo",
+                "parameters": [
+                    {
+                        "name": "viewerId",
+                        "in": "path",
+                        "description": "Id of viewer who purchased a video",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "videoId"
+                                ],
+                                "properties": {
+                                    "videoId": {
+                                        "description": "Id of purchased video",
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/resources/broadcasters/{broadcasterId}/plans": {
+            "get": {
+                "summary": "Get broadcasters plans",
+                "operationId": "Modules\\Resources\\Http\\Controllers\\PlansController::getBroadcastersPlans",
+                "parameters": [
+                    {
+                        "name": "broadcasterId",
+                        "in": "path",
+                        "description": "Id of broadcaster",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Broadcastesrs plans ids",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "plansIds": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "format": "uuid"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add new plan",
+                "operationId": "Modules\\Resources\\Http\\Controllers\\PlansController::addNewPlan",
+                "parameters": [
+                    {
+                        "name": "broadcasterId",
+                        "in": "path",
+                        "description": "Id of broadcaster",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/resources/broadcasters/{broadcasterId}/videos": {
+            "get": {
+                "summary": "Get broadcasters videos",
+                "operationId": "Modules\\Resources\\Http\\Controllers\\VideosController::getBroadcastersVideos",
+                "parameters": [
+                    {
+                        "name": "broadcasterId",
+                        "in": "path",
+                        "description": "Id of broadcaster",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Broadcasters videos ids",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "videosIds": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "format": "uuid"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add new video",
+                "operationId": "Modules\\Resources\\Http\\Controllers\\VideosController::addNewVideo",
+                "parameters": [
+                    {
+                        "name": "broadcasterId",
+                        "in": "path",
+                        "description": "Id of broadcaster",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "e4c7180e-602d-43d1-b7a9-a0a77c0d49a2"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Data required to add new video",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "Title of added video",
+                                        "type": "string",
+                                        "example": "Some video title"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error description"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "SharedKernel",
+    "alias": "sharedkernel",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SharedKernel\\Providers\\SharedKernelServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
